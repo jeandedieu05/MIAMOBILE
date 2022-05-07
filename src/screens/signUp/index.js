@@ -1,39 +1,43 @@
 import React, {useState} from 'react';
+import {useContext} from 'react/cjs/react.production.min';
 import Container from '../../components/common/container/index';
 import SignUpComponent from '../../components/signUp/signUp';
-import envs from '../../components/config/env';
+import envs from '../../config/env';
+// import signUpUser from '../../context/actions/auth/signUp';
+// import GlobalContext from '../../context/provider';
 
 const SignUp = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  // const [error, setError] = useState('hello');
-  const {PRIVATE_API_URL} = envs;
-  console.log(' PRIVATE_API_URL >> ', PRIVATE_API_URL);
+  // const {authDispatch} = useContext(GlobalContext);
 
   const onChange = ({name, value}) => {
-    console.log(' onchange >> ', value);
     setForm({...form, [name]: value});
 
     if (value !== '') {
       if (name === 'password') {
         if (value.length < 8) {
           setErrors(prev => {
-            return {...prev, [name]: 'This field need more than 8 characters'};
+            return {...prev, [name]: 'This field needs minimum 8 characters'};
+          });
+        } else {
+          setErrors(prev => {
+            return {...prev, [name]: null};
           });
         }
+      } else {
         setErrors(prev => {
           return {...prev, [name]: null};
         });
-      } else {
-        setErrors(prev => {
-          return {...prev, [name]: 'This field is required'};
-        });
       }
+    } else {
+      setErrors(prev => {
+        return {...prev, [name]: 'This field is required'};
+      });
     }
   };
 
   const onSubmit = () => {
-    // console.log(' form >> ', form);
     if (!form.userName) {
       setErrors(prev => {
         return {...prev, userName: 'Please add a username'};
@@ -58,6 +62,25 @@ const SignUp = () => {
       setErrors(prev => {
         return {...prev, password: 'Please add a password'};
       });
+    }
+    if (!form.role) {
+      setErrors(prev => {
+        return {...prev, password: 'Please add a role'};
+      });
+    }
+    if (!form.tag) {
+      setErrors(prev => {
+        return {...prev, password: 'Please add a tag'};
+      });
+    }
+
+    if (
+      Object.values(form).length === 7 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      console.log('yessss');
+      // signUpUser(form)(authDispatch);
     }
   };
   return (

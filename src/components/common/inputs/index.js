@@ -13,7 +13,6 @@ const Input = ({
   ...props
 }) => {
   // const [text, onChangeText] = React.useState("Useless Text");
-  // console.log(icon);
   return (
     <View style={tw`py-2`}>
       {label && <Text>{label}</Text>}

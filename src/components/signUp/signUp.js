@@ -30,35 +30,49 @@ const SignUpComponent = ({onChange, onSubmit, form, errors}) => {
         <Input
           label="UserName"
           //  value={username}
-          onChangeText={text => onChange({name: 'userName', text})}
+          onChangeText={value => onChange({name: 'userName', value})}
           placeholder="Enter Username"
           error={errors.userName}
         />
         <Input
           label="First Name"
           //  value={username}
-          onChangeText={text => onChange({name: 'firstName', text})}
+          onChangeText={value => onChange({name: 'firstName', value})}
           placeholder="Enter First name"
           error={errors.firstName}
         />
         <Input
           label="Last Name"
           //  value={password}
-          onChangeText={text => onChange({name: 'lastName', text})}
+          onChangeText={value => onChange({name: 'lastName', value})}
           placeholder="Enter Last name"
           error={errors.lastName}
         />
         <Input
+          label="Role"
+          onChangeText={value => onChange({name: 'role', value})}
+          placeholder="Enter role"
+          error={errors.role}
+          disabled
+        />
+        <Input
+          label="Tag"
+          onChangeText={value => onChange({name: 'tag', value})}
+          placeholder="Enter tag"
+          error={errors.role}
+          disabled
+        />
+        <Input
           label="Email"
           //  value={password}
-          onChangeText={text => onChange({name: 'email', text})}
+          onChangeText={value => onChange({name: 'email', value})}
           placeholder="Enter Email"
           error={errors.email}
         />
         <Input
           label="Password"
           //  value={password}
-          onChangeText={text => onChange({name: 'password', text})}
+          onChangeText={value => onChange({name: 'password', value})}
           secureTextEntry={true}
           placeholder="Enter Password"
           error={errors.password}

@@ -1,15 +1,36 @@
-import React, {useState} from 'react';
-import {useContext} from 'react/cjs/react.production.min';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import React, {useState, useContext, useEffect} from 'react';
 import Container from '../../components/common/container/index';
 import SignUpComponent from '../../components/signUp/signUp';
-import envs from '../../config/env';
-// import signUpUser from '../../context/actions/auth/signUp';
-// import GlobalContext from '../../context/provider';
+import signUpUser, {clearAuthState} from '../../context/actions/auth/signUp';
+import {GlobalContext} from '../../context/provider';
 
 const SignUp = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  // const {authDispatch} = useContext(GlobalContext);
+  const {navigate} = useNavigation();
+  const {
+    authState: {error, loading, data},
+    authDispatch,
+  } = useContext(GlobalContext);
+
+  // useEffect(() => {
+  //   console.log(data);
+  //   if (data) {
+  //     navigate('Login');
+  //   }
+  // }, [data]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
+    }, [data, error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -79,8 +100,9 @@ const SignUp = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      console.log('yessss');
-      // signUpUser(form)(authDispatch);
+      signUpUser(form)(authDispatch)(response => {
+        navigate('Login', {data: response});
+      });
     }
   };
   return (
@@ -90,6 +112,8 @@ const SignUp = () => {
         onSubmit={onSubmit}
         form={form}
         errors={errors}
+        error={error}
+        loading={loading}
       />
     </Container>
   );

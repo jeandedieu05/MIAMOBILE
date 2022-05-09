@@ -6,11 +6,9 @@ import Input from '../../components/common/inputs/index';
 import Button from '../../components/common/button/button';
 import Logo from '../../assets/images/logo-header-blue.png';
 import {useNavigation} from '@react-navigation/native';
+import Messages from '../common/messages';
 
-const LoginComponent = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('hello');
+const LoginComponent = ({error, form, justSignedUp, onChange, onSubmit}) => {
   const {navigate} = useNavigation();
   return (
     <Container>
@@ -27,22 +25,28 @@ const LoginComponent = () => {
         <Text style={tw`text-center font-sans font-bold text-black my-1`}>
           Please login here
         </Text>
+        <Messages message="Invalid credential" />
+        {justSignedUp && <Messages message="Account created successfully" />}
         <Input
           label="Username"
-          value={username}
-          onChangeText={text => setUsername(text)}
+          value={form.userName}
+          onChangeText={value => onChange({name: 'userName', value})}
           placeholder="Enter Username"
           // error="This field is required"
         />
         <Input
           label="Password"
-          value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={value => onChange({name: 'password', value})}
           secureTextEntry={true}
           placeholder="Enter Password"
           // error="This field is required"
         />
-        <Button title="Submit" loading={true} disabled={false} />
+        <Button
+          onPress={onSubmit}
+          title="Submit"
+          loading={true}
+          disabled={false}
+        />
 
         <View style={tw`flex flex-row mt-4`}>
           <Text style={tw``}>Need a new account ? </Text>

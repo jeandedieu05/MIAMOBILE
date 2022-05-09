@@ -1,43 +1,75 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect, useContext} from 'react';
+import {useRoute} from '@react-navigation/native';
 import axios from 'axios';
 import Container from '../../components/common/container/index';
 import LoginComponent from '../../components/login/login';
-import AxiosInstance from '../../helpers/axiosConfig';
-import envs from '../../config/env';
+import {GlobalContext} from '../../context/provider';
+import loginUser from '../../context/actions/auth/loginUser';
 
 const Login = () => {
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [error, setError] = useState('hello');
-  const baseURL = 'http://localhost:8000';
-  //console.log(envs.PRIVATE_API_URL);
-  // useEffect(() => {
-  //   AxiosInstance.get('/api/v1/auth/login').catch(error => {
-  //     console.log('err', error);
-  //   });
-  // }, []);
-
-  const data = {
-    username: 'omar',
-    password: '12345678',
-  };
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+  const [justSignedUp, setJustSignedUp] = useState(false);
+  // const {navigate} = useNavigation();
+  const {params} = useRoute();
 
   useEffect(() => {
-    // console.log(baseURL);
-    axios
-      .post(`${baseURL}/api/v1/auth/login`, data, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-      .catch(error => {
-        console.log('err', error);
+    // console.log(params);
+    if (params?.data) {
+      setJustSignedUp(true);
+      setForm({...form, userName: params.data.username});
+      console.log('Login', params);
+    }
+  }, [params]);
+  const {
+    authState: {error, loading, data},
+    authDispatch,
+  } = useContext(GlobalContext);
+
+  const onSubmit = () => {
+    if (form.userName && form.password) {
+      console.log(form.userName, form.password);
+      loginUser(form)(authDispatch);
+    }
+  };
+  const onChange = ({name, value}) => {
+    setJustSignedUp(false);
+    setForm({...form, [name]: value});
+
+    if (value !== '') {
+      if (name === 'password') {
+        if (value.length < 8) {
+          setErrors(prev => {
+            return {...prev, [name]: 'This field needs minimum 8 characters'};
+          });
+        } else {
+          setErrors(prev => {
+            return {...prev, [name]: null};
+          });
+        }
+      } else {
+        setErrors(prev => {
+          return {...prev, [name]: null};
+        });
+      }
+    } else {
+      setErrors(prev => {
+        return {...prev, [name]: 'This field is required'};
       });
-  });
+    }
+  };
   return (
     <Container>
-      <LoginComponent />
+      <LoginComponent
+        onChange={onChange}
+        onSubmit={onSubmit}
+        form={form}
+        errors={errors}
+        error={error}
+        loading={loading}
+        justSignedUp={justSignedUp}
+      />
     </Container>
   );
 };

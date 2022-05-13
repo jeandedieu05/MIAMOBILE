@@ -29,27 +29,28 @@ const SignUpComponent = ({onChange, onSubmit, form, errors}) => {
         </Text>
         <Input
           label="UserName"
-          //  value={username}
+          value={form.userName}
           onChangeText={value => onChange({name: 'userName', value})}
           placeholder="Enter Username"
           error={errors.userName}
         />
         <Input
           label="First Name"
-          //  value={username}
+          value={form.firstName}
           onChangeText={value => onChange({name: 'firstName', value})}
           placeholder="Enter First name"
           error={errors.firstName}
         />
         <Input
           label="Last Name"
-          //  value={password}
+          value={form.lastName}
           onChangeText={value => onChange({name: 'lastName', value})}
           placeholder="Enter Last name"
           error={errors.lastName}
         />
         <Input
           label="Role"
+          value={form.role}
           onChangeText={value => onChange({name: 'role', value})}
           placeholder="Enter role"
           error={errors.role}
@@ -57,21 +58,22 @@ const SignUpComponent = ({onChange, onSubmit, form, errors}) => {
         />
         <Input
           label="Tag"
+          value={form.tag}
           onChangeText={value => onChange({name: 'tag', value})}
           placeholder="Enter tag"
-          error={errors.role}
+          error={errors.tag}
           disabled
         />
         <Input
           label="Email"
-          //  value={password}
+          value={form.email}
           onChangeText={value => onChange({name: 'email', value})}
           placeholder="Enter Email"
           error={errors.email}
         />
         <Input
           label="Password"
-          //  value={password}
+          value={form.password}
           onChangeText={value => onChange({name: 'password', value})}
           secureTextEntry={true}
           placeholder="Enter Password"

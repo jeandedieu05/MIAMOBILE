@@ -7,7 +7,7 @@ import signUpUser, {clearAuthState} from '../../context/actions/auth/signUp';
 import {GlobalContext} from '../../context/provider';
 
 const SignUp = () => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({role: 'author', tag: 'teacher'});
   const [errors, setErrors] = useState({});
   const {navigate} = useNavigation();
   const {
@@ -86,12 +86,12 @@ const SignUp = () => {
     }
     if (!form.role) {
       setErrors(prev => {
-        return {...prev, password: 'Please add a role'};
+        return {...prev, role: 'Please add a role'};
       });
     }
     if (!form.tag) {
       setErrors(prev => {
-        return {...prev, password: 'Please add a tag'};
+        return {...prev, tag: 'Please add a tag'};
       });
     }
 

@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import tw from 'twrnc';
 
-const Messages = ({message, disabled, ...props}) => {
+const Messages = ({message, disabled, success, ...props}) => {
   // const [text, onChangeText] = React.useState("Useless Text");
   // console.log(icon);
   const [removed, setRemoved] = useState(false);
-  const bgColor = disabled ? 'bg-neutral-500' : 'bg-cyan-500';
+  const bgColor = disabled ? 'bg-neutral-500' : 'bg-green-400';
   return (
     <>
       {removed ? null : (

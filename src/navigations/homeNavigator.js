@@ -2,10 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Text, View} from 'react-native';
 
-const Profile = () => {
+const Home = () => {
   return (
     <View>
-      <Text> Hello profile</Text>
+      <Text> Hello stories</Text>
     </View>
   );
 };
@@ -19,8 +19,8 @@ const Settings = () => {
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
   return (
-    <HomeStack.Navigator initialRouteName="Profile">
-      <HomeStack.Screen name="Profile" component={Profile} />
+    <HomeStack.Navigator initialRouteName="Home">
+      <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Settings" component={Settings} />
     </HomeStack.Navigator>
   );

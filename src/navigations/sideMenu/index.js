@@ -8,7 +8,9 @@ import {
 } from 'react-native';
 import tw from 'twrnc';
 import React from 'react';
-import Logo from '../../assets/images/logo-header-blue.png';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {Avatar, Title} from 'react-native-paper';
+import profileImage from '../../assets/images/blank-profile-picture.png';
 import Container from '../../components/common/container';
 import logoutUser from '../../context/actions/auth/logoutUser';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
@@ -30,6 +32,13 @@ export default function SideMenu({navigation, authDispatch}) {
   };
   const menuItems = [
     {
+      icon: <Icon size={17} name="home" />,
+      name: 'Home',
+      onPress: () => {
+        navigation.navigate('Home');
+      },
+    },
+    {
       icon: <Icon size={17} name="settings" />,
       name: 'Settings',
       onPress: () => {
@@ -48,17 +57,21 @@ export default function SideMenu({navigation, authDispatch}) {
   return (
     <SafeAreaView>
       <Container>
-        <Image
-          height={70}
-          width={70}
-          source={Logo}
-          style={tw`self-center mt-12 mb-4`}
-        />
-        <View style={tw`px-18 pt-6`}>
+        <View style={tw`flex-row mt-12 mb-4`}>
+          <Avatar.Image size={48} source={profileImage} style={tw``} />
+          <Text style={tw`pl-2 mt-3 text-black`}>John Chafi</Text>
+        </View>
+
+        <View style={tw`pl-2 pt-6 text-black`}>
           {menuItems.map(({name, icon, onPress}) => (
-            <TouchableOpacity key={name} style={tw`flex-row`} onPress={onPress}>
+            <TouchableOpacity
+              key={name}
+              style={tw`flex-row py-1`}
+              onPress={onPress}>
               {icon}
-              <Text style={tw`pl-2`}>{name}</Text>
+              <Text style={tw`pl-2 text-black font-sans font-bold`}>
+                {name}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

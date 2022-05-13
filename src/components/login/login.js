@@ -25,8 +25,10 @@ const LoginComponent = ({error, form, justSignedUp, onChange, onSubmit}) => {
         <Text style={tw`text-center font-sans font-bold text-black my-1`}>
           Please login here
         </Text>
-        <Messages message="Invalid credential" />
-        {justSignedUp && <Messages message="Account created successfully" />}
+        {/* <Messages message="Invalid credential" /> */}
+        {justSignedUp && (
+          <Messages success={true} message="Account created successfully" />
+        )}
         <Input
           label="Username"
           value={form.userName}

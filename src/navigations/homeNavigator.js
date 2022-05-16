@@ -1,15 +1,16 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+// import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Text, View} from 'react-native';
 
-const Home = () => {
+const Hello = () => {
   return (
     <View>
       <Text> Hello stories</Text>
     </View>
   );
 };
-const Settings = () => {
+const Set = () => {
   return (
     <View>
       <Text> Hello settings</Text>
@@ -17,12 +18,13 @@ const Settings = () => {
   );
 };
 const HomeNavigator = () => {
-  const HomeStack = createStackNavigator();
+  // const HomeStack = createStackNavigator();
+  const Drawer = createDrawerNavigator();
   return (
-    <HomeStack.Navigator initialRouteName="Home">
-      <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Settings" component={Settings} />
-    </HomeStack.Navigator>
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Hello" component={Hello} />
+      <Drawer.Screen name="Set" component={Set} />
+    </Drawer.Navigator>
   );
 };
 export default HomeNavigator;

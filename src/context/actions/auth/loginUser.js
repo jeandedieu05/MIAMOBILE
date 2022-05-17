@@ -16,6 +16,7 @@ export default ({password, userName: username}) =>
       username,
     })
       .then(res => {
+        console.log('Answer', res.data);
         AsyncStorage.setItem('token', res.data.token);
         AsyncStorage.setItem('role', JSON.stringify(res.data.role));
 

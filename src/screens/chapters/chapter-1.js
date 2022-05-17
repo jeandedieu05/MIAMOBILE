@@ -10,7 +10,10 @@ const Chapter1 = () => {
       <Container>
         <View>
           <View>
-            <Text style={tw`text-black`}> The Lower North Shore</Text>
+            <Text style={tw`text-2xl leading-tight font-semibold `}>
+              {' '}
+              The Lower North Shore
+            </Text>
           </View>
           <View>
             <Text style={tw`text-black`}>

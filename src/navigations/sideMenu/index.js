@@ -134,7 +134,7 @@ export default function SideMenu({navigation, authDispatch}) {
           </View>
         </View>
       </Container>
-      <TouchableOpacity style={tw`ml-8 mb-8`}>
+      <TouchableOpacity style={tw`ml-8 mb-8`} onPress={() => handleLogout()}>
         <View style={tw`flex-row`}>
           <Icon size={17} name="logout" />
           <Text style={tw`pl-2 text-black font-sans`}>Logout</Text>

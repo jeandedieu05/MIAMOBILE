@@ -21,6 +21,8 @@ target 'miaMobile' do
 
   pod 'OGReactNativeWaveform', :path => '../node_modules/react-native-audiowaveform'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'miaMobileTests' do
     inherit! :complete
     # Pods for testing

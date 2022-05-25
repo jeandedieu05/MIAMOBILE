@@ -19,8 +19,10 @@
     "pod-install": "^0.1.35",
     "react": "17.0.2",
     "react-native": "0.68.1",
+    "react-native-component-inview": "^1.0.2",
     "react-native-dotenv": "^3.3.1",
     "react-native-gesture-handler": "^2.4.1",
+    "react-native-intersection-observer": "0.0.8",
     "react-native-maps": "^0.31.1",
     "react-native-paper": "^4.12.1",
     "react-native-reanimated": "^2.8.0",
@@ -28,6 +30,7 @@
     "react-native-screens": "^3.13.1",
     "react-native-timeline-flatlist": "^0.8.0",
     "react-native-vector-icons": "^9.1.0",
+    "react-native-video": "^5.2.0",
     "twrnc": "^3.3.0"
   },
   "devDependencies": {

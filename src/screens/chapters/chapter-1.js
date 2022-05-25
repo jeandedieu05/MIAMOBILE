@@ -1,18 +1,49 @@
-import {View, Text, SafeAreaView, Image, StyleSheet} from 'react-native';
-import React, {useEffect} from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import Container from '../../components/common/container';
 import tw from 'twrnc';
 import image1 from '../../assets/images/project-image-00.jpg';
 import Timeline from 'react-native-timeline-flatlist';
 import MapView from 'react-native-maps';
 import MapboxGL from '@rnmapbox/maps';
+import Video from 'react-native-video';
+// import {IOScrollView, InView} from 'react-native-intersection-observer';
 // import WaveForm from 'react-native-audiowaveform';
+//import InView from 'react-native-component-inview';
+// import Inview from 'react-native-inview';
+
+import InView from '../../helpers/inView';
+import MapTerrain from '../../components/maps/mapTerrain';
 
 const NEXT_PUBLIC_MAPBOX_TOKEN =
   'pk.eyJ1IjoiZ3JlZ21jdyIsImEiOiJja3o5NTdnam0xcXNtMnZwNDI0M2tpYzkzIn0.Zuc52a4LvpFVe326i2YG8w';
 MapboxGL.setAccessToken(NEXT_PUBLIC_MAPBOX_TOKEN);
 
 const Chapter1 = () => {
+  const [isInView, setIsInView] = useState(false);
+  const [region, setRegion] = useState({
+    latitude: 27.2046,
+    longitude: -77.4977,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+
+  // const checkVisible = isVisible => {
+  //   console.log(isVisible);
+  //   if (isVisible) {
+  //     setIsInView(isVisible);
+  //   } else {
+  //     setIsInView(isVisible);
+  //   }
+  // };
+
   const data = [
     {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
     {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -20,10 +51,6 @@ const Chapter1 = () => {
     {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
     {time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
   ];
-
-  // useEffect(() => {
-  //   document.title = `You clicked ${count} times`;
-  // });
 
   const styles = StyleSheet.create({
     container: {
@@ -33,26 +60,37 @@ const Chapter1 = () => {
     },
     map: {
       flex: 1,
+      height: 350,
+      width: 350,
+    },
+    backgroundVideo: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      height: 300,
+      width: 350,
     },
   });
-
   return (
     <SafeAreaView style={tw`h-full`}>
       <View style={tw`h-full`}>
         <View style={tw`flex-col h-full`}>
           <Container>
-            <View style={styles.container}>
-              {/* <MapView
-                initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }}
-                style={{height: 400, width: 350}}
-              /> */}
+            {/* <View style={styles.container}>
               <MapboxGL.MapView style={styles.map} />
-            </View>
+            </View> */}
+            <MapTerrain
+              style={styles.map}
+              initialRegion={{
+                latitude: 27.2046,
+                longitude: -77.4977,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              onRegionChangeComplete={region => setRegion(region)}
+            />
           </Container>
           <Container>
             <View style={tw`h-6/12 `}>
@@ -118,13 +156,30 @@ const Chapter1 = () => {
                   inhospitable landscape. &quot;Except at Blanc Sablon,&quot; he
                   recorded in his journal, &quot;there is nothing but moss and
                   short, stunted shrub…I am inclined to believe that this is the
-                  land God gave to Cain .&quot;
+                  <Text style={tw`text-black font-bold pl-2`}>
+                    land God gave to Cain .&quot;
+                  </Text>
                 </Text>
               </View>
-              <View>
-                <Text style={tw`text-red-500`}>ReactPlayer</Text>
+              <View style={{height: 150, width: 350}}>
+                <Video
+                  source={{
+                    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+                  }} // Can be a URL or a local file.
+                  style={styles.backgroundVideo}
+                />
               </View>
               <Text style={tw`text-green-500`}>(Geographic Territory)</Text>
+
+              {/* <InView
+                onChange={inView => {
+                  if (inView) {
+                    console.log('holalallalalaalla => ', inView);
+                  }
+                }}
+              /> */}
+
+              <InView onChange={inView => console.log(inView)} />
 
               <View>
                 <Text style={tw`text-black`}>

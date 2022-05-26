@@ -1,48 +1,39 @@
 import React from 'react';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import {StyleSheet, Dimensions, View, ScrollView} from 'react-native';
-//import {, MapView} from 'react-native-maps';
-
-export default function mapTerrain({mapLocation, mapMarkers, mapZoom}) {
-  const styles = StyleSheet.create({
-    containerStyle: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'lightblue',
-      position: 'relative',
-    },
-    mapStyle: {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      position: 'absolute',
-      minHeight: Dimensions.get('window').height,
-    },
-  });
-
+export default function map({mapLocation, mapMarkers, mapZoom}) {
   return (
-    <View style={styles.containerStyle}>
+    <View style={styles.container}>
+      {/*Render our MapView*/}
       <MapView
-        style={styles.mapStyle}
-        //specify our coordinates.
+        style={styles.map}
         initialRegion={{
           latitude: mapLocation.lat,
           longitude: mapLocation.long,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-        {mapMarkers.map(mapMarker => (
-          <Marker
-            key={mapMarker.description}
-            coordinate={{
-              latitude: mapMarker.lat,
-              longitude: mapMarker.long,
-            }}
-          />
-        ))}
+        <Marker
+          key={mapLocation.description}
+          coordinate={{
+            latitude: mapLocation.lat,
+            longitude: mapLocation.long,
+          }}
+        />
       </MapView>
     </View>
   );
 }
+//create our styling code:
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1, //the container will fill the whole screen.
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    minHeight: Dimensions.get('window').height,
+  },
+});

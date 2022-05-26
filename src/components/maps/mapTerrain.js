@@ -1,37 +1,48 @@
 import React from 'react';
-import MapView from 'react-native-maps';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
+import {StyleSheet, Dimensions, View, ScrollView} from 'react-native';
+//import {, MapView} from 'react-native-maps';
 
-export default function mapTerrain() {
+export default function mapTerrain({mapLocation, mapMarkers, mapZoom}) {
   const styles = StyleSheet.create({
-    container: {
-      height: 350,
-      width: 350,
-      backgroundColor: 'tomato',
-    },
-    map: {
+    containerStyle: {
       flex: 1,
-      height: 350,
-      width: 350,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'lightblue',
+      position: 'relative',
+    },
+    mapStyle: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      position: 'absolute',
+      minHeight: Dimensions.get('window').height,
     },
   });
+
   return (
-    <MapView
-      style={styles.map}
-      //specify our coordinates.
-      initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-    />
+    <View style={styles.containerStyle}>
+      <MapView
+        style={styles.mapStyle}
+        //specify our coordinates.
+        initialRegion={{
+          latitude: mapLocation.lat,
+          longitude: mapLocation.long,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+        {mapMarkers.map(mapMarker => (
+          <Marker
+            key={mapMarker.description}
+            coordinate={{
+              latitude: mapMarker.lat,
+              longitude: mapMarker.long,
+            }}
+          />
+        ))}
+      </MapView>
+    </View>
   );
 }

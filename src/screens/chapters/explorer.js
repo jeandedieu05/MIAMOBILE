@@ -34,8 +34,8 @@ const Explorer = () => {
   const [isInView, setIsInView] = useState(false);
   const [isPermitted, setIspermitted] = useState(false);
   const [mapLocation, setMapLocation] = useState({
-    latitude: 45.4315564,
-    longitude: -75.7773873,
+    lat: 45.4315564,
+    long: -75.7773873,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [mapMarkers, setMapMarkers] = useState([]);
@@ -65,20 +65,21 @@ const Explorer = () => {
           },
         });
 
+        console.log(permission);
+
         if (permission) {
           let location = await RNLocation.getLatestLocation({timeout: 6000});
-          setMapLocation({
-            latitude: location.latitude,
-            longitude: location.longitude,
-          });
+          console.log(location);
+          setMapLocation({lat: location.latitude, long: location.longitude});
           setIsLoading(true);
         }
       } else {
         //let location = await RNLocation.getLatestLocation({timeout: 6000});
         RNLocation.subscribeToLocationUpdates(locations => {
+          console.log(locations);
           setMapLocation({
-            latitude: locations[0].latitude,
-            longitude: locations[0].longitude,
+            lat: locations[0].latitude,
+            long: locations[0].longitude,
           });
           setIsLoading(true);
         });
@@ -87,6 +88,7 @@ const Explorer = () => {
 
     getPermission().catch(err => console.log(err));
   }, []);
+  console.log(mapLocation);
   return (
     <SafeAreaView>
       {isLoading ? (

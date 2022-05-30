@@ -109,7 +109,10 @@ export default function SideMenu({navigation, authDispatch}) {
               <Text style={tw`pl-2 text-black font-sans`}>Home</Text>
             </View>
             <TouchableOpacity
-              style={tw`bg-sky-800 self-end h-8 w-8 border rounded`}
+              // style={tw`bg-sky-800 self-end h-8 w-8 border rounded`}
+              style={tw.style('self-end h-8 w-8 border rounded', {
+                backgroundColor: '#2D5182',
+              })}
               onPress={() => navigation.navigate('Home')}>
               <Icon size={30} name="navigate-next" color="white" />
             </TouchableOpacity>
@@ -125,7 +128,9 @@ export default function SideMenu({navigation, authDispatch}) {
                   <Text style={tw`pl-2 text-black font-sans`}>{name}</Text>
                 </View>
                 <TouchableOpacity
-                  style={tw`bg-sky-800 self-end h-8 w-8 border rounded items-center`}
+                  style={tw.style('self-end h-8 w-8 border rounded', {
+                    backgroundColor: '#2D5182',
+                  })}
                   onPress={onPress}>
                   {nextIcon}
                 </TouchableOpacity>

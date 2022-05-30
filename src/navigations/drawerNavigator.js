@@ -10,7 +10,7 @@ import SideMenu from './sideMenu';
 import {GlobalContext} from '../context/provider';
 import Home from '../screens/home';
 import Settings from '../screens/settings';
-import Chapter1 from '../screens/chapters/chapter-1';
+import Explorer from '../screens/chapters/explorer';
 const getDrawerContent = (navigation, authDispatch, props) => {
   return (
     <SideMenu navigation={navigation} authDispatch={authDispatch} {...props} />
@@ -25,11 +25,6 @@ const LogoTitle = () => {
   );
 };
 
-// const Details = () => (
-//   <View>
-//     <Text>This is details page</Text>
-//   </View>
-// );
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
   const {authDispatch} = useContext(GlobalContext);
@@ -61,7 +56,7 @@ const Final = () => {
 
       <Stack.Screen
         name="Chapter1"
-        component={Chapter1}
+        component={Explorer}
         options={{
           headerShown: true,
         }}
